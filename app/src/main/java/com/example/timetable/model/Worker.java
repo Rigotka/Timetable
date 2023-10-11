@@ -5,8 +5,11 @@ import androidx.annotation.DrawableRes;
 public class Worker {
     @DrawableRes
     private int _image;
+
     private String _name;
+
     private String[] _workDays = new String[7];
+
     public Worker(int image, String name) {
         setImage(image);
         setName(name);
@@ -14,15 +17,18 @@ public class Worker {
     public void setImage(int image) {
         _image = image;
     }
+
     public void setName(String name) {
         _name = name;
     }
+
     public void setWorkDays(String[] workDays){
         _workDays = workDays;
     }
     public int getImage() {
         return _image;
     }
+
     public String getName() {
         return _name;
     }
