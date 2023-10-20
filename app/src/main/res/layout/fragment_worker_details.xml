@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".fragments.WorkerDetails"
+    android:id="@+id/details"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/hz"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/hz">
+
+        <TextView
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/checkboxContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name">
+
+<!--            <CheckBox-->
+<!--                android:id="@+id/checkBox2"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Пн"-->
+<!--                android:layout_weight="1"/>-->
+
+<!--            <CheckBox-->
+<!--                android:id="@+id/checkBox3"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Вт"-->
+<!--                android:layout_weight="1"/>-->
+
+<!--            <CheckBox-->
+<!--                android:id="@+id/checkBox4"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Ср"-->
+<!--                android:layout_weight="1"/>-->
+
+<!--            <CheckBox-->
+<!--                android:id="@+id/checkBox5"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Чт"-->
+<!--                android:layout_weight="1"/>-->
+
+<!--            <CheckBox-->
+<!--                android:id="@+id/checkBox6"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Пт"-->
+<!--                android:layout_weight="1"/>-->
+
+<!--            <CheckBox-->
+<!--                android:id="@+id/checkBox7"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Сб"-->
+<!--                android:layout_weight="1"/>-->
+
+<!--            <CheckBox-->
+<!--                android:id="@+id/checkBox8"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Вс"-->
+<!--                android:layout_weight="1"/>-->
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Готово"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkboxContainer" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

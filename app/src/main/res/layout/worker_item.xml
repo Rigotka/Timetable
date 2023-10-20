@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:paddingBottom="8dp">
+    android:paddingBottom="8dp"
+    android:background="@drawable/worker_item">
 
     <ImageView
         android:id="@+id/avatarImageView"
@@ -22,10 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="6"
-        android:textSize="20sp"
         android:hint="Введите имя"
         android:imeOptions="actionDone"
         android:inputType="text"
+        android:textSize="21sp"
         app:layout_constraintStart_toEndOf="@id/avatarImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +34,7 @@
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:text="Может работать в: "
         app:layout_constraintStart_toEndOf="@id/avatarImageView"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText"/>
@@ -43,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Пн Вт Ср Чт Пт Сб Вс"
-        android:textSize="17sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

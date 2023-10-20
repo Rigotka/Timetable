@@ -9,6 +9,8 @@ import com.example.timetable.fragments.TimetableFragment;
 import com.example.timetable.fragments.WorkersFragment;
 
 public class PagerAdapter extends FragmentStateAdapter {
+    private Fragment workersFragment = new WorkersFragment();
+
     public PagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
@@ -18,7 +20,7 @@ public class PagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new WorkersFragment();
+                return workersFragment;
             case 1:
                 return new TimetableFragment();
             default:
@@ -28,5 +30,9 @@ public class PagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return 2;
+    }
+
+    public Object getWorkerFragment() {
+        return workersFragment;
     }
 }
