@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.WorkersFragment"
-    android:onClick="test">
+    tools:context=".fragments.WorkersFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -13,7 +12,8 @@
         android:layout_height="0dp"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@id/button"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusableInTouchMode="true"/>
 
     <Button
         android:id="@+id/button"

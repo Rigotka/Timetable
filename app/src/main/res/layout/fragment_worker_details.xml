@@ -9,7 +9,7 @@
     android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/hz"
+        android:background="@drawable/worker_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/hz">
@@ -38,56 +38,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name">
-
-<!--            <CheckBox-->
-<!--                android:id="@+id/checkBox2"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Пн"-->
-<!--                android:layout_weight="1"/>-->
-
-<!--            <CheckBox-->
-<!--                android:id="@+id/checkBox3"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Вт"-->
-<!--                android:layout_weight="1"/>-->
-
-<!--            <CheckBox-->
-<!--                android:id="@+id/checkBox4"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Ср"-->
-<!--                android:layout_weight="1"/>-->
-
-<!--            <CheckBox-->
-<!--                android:id="@+id/checkBox5"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Чт"-->
-<!--                android:layout_weight="1"/>-->
-
-<!--            <CheckBox-->
-<!--                android:id="@+id/checkBox6"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Пт"-->
-<!--                android:layout_weight="1"/>-->
-
-<!--            <CheckBox-->
-<!--                android:id="@+id/checkBox7"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Сб"-->
-<!--                android:layout_weight="1"/>-->
-
-<!--            <CheckBox-->
-<!--                android:id="@+id/checkBox8"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Вс"-->
-<!--                android:layout_weight="1"/>-->
-
         </LinearLayout>
 
         <Button

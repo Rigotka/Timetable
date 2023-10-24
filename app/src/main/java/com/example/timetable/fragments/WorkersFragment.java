@@ -47,10 +47,10 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Save
         Button button = view.findViewById(R.id.button);
         button.setOnClickListener(v -> {
             _keyboardHandler.showKeyboard(v);
+            _adapter.deleteEmptyWorker();
             _adapter.addWorker();
             _recyclerView.smoothScrollToPosition(_adapter.getItemCount() - 1);
             _adapter.notifyItemChanged(_adapter.getItemCount() - 1);
-//            _recyclerView.smoothScrollToPosition(_adapter.getItemCount() - 1);
 
         });
 
@@ -67,6 +67,7 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Save
             Toast.makeText(getContext(), "Заполните поля имя", Toast.LENGTH_SHORT).show();
             return;
         }
+        _adapter.deleteEmptyWorker();
         workerDetails = new WorkerDetails();
 
         Bundle args = new Bundle();
@@ -78,17 +79,12 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Save
         workerDetails.show(requireActivity().getSupportFragmentManager(), "");
 
         View view = requireActivity().getCurrentFocus();
-        if(view != null)
-            view.clearFocus();
+        if(view != null) {
+//            view.clearFocus();
+            View hz = view.findFocus();
+            hz.clearFocus();
+        }
     }
-//        _recyclerView.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                _adapter.notifyItemRemoved(index);
-//            }
-//        });
-
-
 
     public void test(View view) {
         _recyclerView.requestFocus();
@@ -98,5 +94,6 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Save
     public void SaveData(String[] days) {
         _adapter.updateEmployeeData(days);
         workerDetails.dismiss();
+        _recyclerView.requestFocus();
     }
 }

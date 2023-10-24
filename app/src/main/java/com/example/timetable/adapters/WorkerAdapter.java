@@ -26,8 +26,9 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
 
     private List<Worker> _workersList = new ArrayList<>();
 
-    private int _selectedWorker;
+    private int _selectedWorkerIndex;
 
+    private Worker _lastWorker;
 
     private ClickItemListener listener;
 
@@ -55,15 +56,30 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
 
         holder.itemView.setTag(worker);
         holder.itemView.setOnClickListener(this);
+        holder.avatarImageView.setTag(worker);
+        holder.avatarImageView.setOnClickListener(this);
         holder.editTextListener.SetViewHolder(holder);
 
         ImageView avatarImageView = holder.avatarImageView;
         EditText nameEditText = holder.nameEditText;
         TextView daysWorkTextView = holder.workDaysTextView;
 
-        avatarImageView.setImageResource(worker.getImage());
+        if(worker.getNameIntroduced()){
+            nameEditText.setCursorVisible(false);
+            nameEditText.setBackgroundColor(Color.TRANSPARENT);
+            nameEditText.setKeyListener(null);
+            nameEditText.setPadding(0,25,0,0);
+        }
+
         nameEditText.setText(worker.getName());
         daysWorkTextView.setText(worker.getworkDaysAsString());
+
+        if(worker.getIsWork()){
+            avatarImageView.setImageResource(worker.getImage());
+        }
+        else {
+            avatarImageView.setImageResource(R.drawable.avatar_uncolor);
+        }
     }
 
     @Override
@@ -81,9 +97,19 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
 
     @Override
     public void onClick(View view) {
-        Worker employee = (Worker) view.getTag();
-        this._selectedWorker = _workersList.indexOf(employee);
-        this.listener.onItemClick(employee);
+        int position = view.getId();
+        if(position == R.id.avatarImageView){
+            Toast.makeText(view.getContext(), "tuda",Toast.LENGTH_SHORT).show();
+            Worker worker = (Worker) view.getTag();
+            worker.setIsWork(!worker.getIsWork());
+            notifyDataSetChanged();
+        }
+        else
+        {
+            Worker worker = (Worker) view.getTag();
+            this._selectedWorkerIndex = _workersList.indexOf(worker);
+            this.listener.onItemClick(worker);
+        }
     }
 
 
@@ -101,11 +127,10 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
             this.workDaysTextView = itemView.findViewById(R.id.workDaysTextView);
 
             this.nameEditText.addTextChangedListener(editTextListener);
-            this.nameEditText.setOnFocusChangeListener(editTextListener);
         }
     }
 
-    private class EditTextListener implements TextWatcher, View.OnFocusChangeListener {
+    private class EditTextListener implements TextWatcher {
         private WorkerAdapter.ViewHolder viewHolder;
 
         public void SetViewHolder(WorkerAdapter.ViewHolder viewHolder) {
@@ -123,42 +148,31 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
 
         @Override
         public void afterTextChanged(Editable editable) {}
-
-        @Override
-        public void onFocusChange(View view, boolean b) {
-            EditText hz = (EditText) view;
-            int position = viewHolder.getAdapterPosition();
-            if(!b && hz.getText().toString().equals("")){
-                Toast.makeText(view.getContext(), String.valueOf(position) , Toast.LENGTH_SHORT).show();
-                if(position > getItemCount() || position == -1)
-                    return;
-                _workersList.remove(position);
-            }
-            if(!b && !hz.getText().toString().equals("")) {
-//                hz.setEnabled(false);
-                hz.setCursorVisible(false);
-                hz.setBackgroundColor(Color.TRANSPARENT);
-                hz.setKeyListener(null);
-                hz.setPadding(0,25,0,0);
-            }
-            if(b && !hz.getText().toString().equals("")){
-                hz.setCursorVisible(false);
-                hz.setBackgroundColor(Color.TRANSPARENT);
-                hz.setKeyListener(null);
-                hz.setPadding(0,25,0,0);
-            }
-
-        }
     }
 
     public void addWorker() {
-        _workersList.add(new Worker(_avatars[(int) (Math.random() * 3)], ""));
+        _lastWorker = new Worker(_avatars[(int) (Math.random() * 3)], "");
+        _workersList.add(_lastWorker);
+    }
+
+    public void deleteEmptyWorker(){
+        int position = _workersList.indexOf(_lastWorker);
+        if(_lastWorker != null){
+            if(_lastWorker.getName().equals("")){
+                _workersList.remove(position);
+                notifyItemRemoved(position);
+                _lastWorker = null;
+            }
+        }
+    }
+
+    public List<Worker> getWorkers() {
+        return _workersList;
     }
 
     public void updateEmployeeData(String[] days) {
-        _workersList.get(_selectedWorker).setWorkDays(days);
-        notifyItemChanged(_selectedWorker);
-
+        _workersList.get(_selectedWorkerIndex).setWorkDays(days);
+        notifyDataSetChanged();
     }
 
 }

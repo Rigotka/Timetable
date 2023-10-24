@@ -28,7 +28,9 @@
         android:inputType="text"
         android:textSize="21sp"
         app:layout_constraintStart_toEndOf="@id/avatarImageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#EDE4FF"
+        android:paddingTop="8dp"/>
 
     <TextView
         android:id="@+id/label"
