@@ -17,11 +17,11 @@ import com.example.timetable.R;
 import com.example.timetable.adapters.WorkerAdapter;
 import com.example.timetable.listeners.ClickItemListener;
 import com.example.timetable.listeners.KeyboardHandler;
-import com.example.timetable.listeners.SaveDataListener;
+import com.example.timetable.listeners.WorkerDetailsListener;
 import com.example.timetable.model.Worker;
 
 
-public class WorkersFragment extends Fragment implements ClickItemListener, SaveDataListener {
+public class WorkersFragment extends Fragment implements ClickItemListener, WorkerDetailsListener {
 
     private final WorkerAdapter _adapter = new WorkerAdapter();
 
@@ -29,19 +29,19 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Save
 
     private KeyboardHandler _keyboardHandler;
 
-    private WorkerDetails workerDetails;
+    private WorkerDetails _workerDetails;
+
+    private Worker _currentWorker;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workers, container, false);
 
         _recyclerView = view.findViewById(R.id.recyclerView);
-//        _recyclerView.setItemAnimator(null);
         _recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         _recyclerView.setAdapter(_adapter);
-
+        _recyclerView.setItemViewCacheSize(20);
         _adapter.setListener(this);
 
         Button button = view.findViewById(R.id.button);
@@ -51,7 +51,6 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Save
             _adapter.addWorker();
             _recyclerView.smoothScrollToPosition(_adapter.getItemCount() - 1);
             _adapter.notifyItemChanged(_adapter.getItemCount() - 1);
-
         });
 
         return view;
@@ -68,32 +67,34 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Save
             return;
         }
         _adapter.deleteEmptyWorker();
-        workerDetails = new WorkerDetails();
+        _workerDetails = new WorkerDetails();
+
+        _currentWorker = worker;
 
         Bundle args = new Bundle();
         args.putString("name", worker.getName());
         args.putStringArray("workDays", worker.getWorkDays());
-        workerDetails.setArguments(args);
-        workerDetails.SetListener(this);
-        workerDetails.setCancelable(false);
-        workerDetails.show(requireActivity().getSupportFragmentManager(), "");
+        _workerDetails.setArguments(args);
+        _workerDetails.SetListener(this);
+        _workerDetails.setCancelable(false);
+        _workerDetails.show(requireActivity().getSupportFragmentManager(), "");
 
         View view = requireActivity().getCurrentFocus();
         if(view != null) {
-//            view.clearFocus();
             View hz = view.findFocus();
             hz.clearFocus();
         }
     }
 
-    public void test(View view) {
-        _recyclerView.requestFocus();
-    }
-
     @Override
     public void SaveData(String[] days) {
         _adapter.updateEmployeeData(days);
-        workerDetails.dismiss();
-        _recyclerView.requestFocus();
+        _workerDetails.dismiss();
+    }
+
+    @Override
+    public void DeleteWorker(){
+        _adapter.deleteWorker();
+        _workerDetails.dismiss();
     }
 }

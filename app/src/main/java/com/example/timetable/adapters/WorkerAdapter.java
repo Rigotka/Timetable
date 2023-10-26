@@ -1,8 +1,10 @@
 package com.example.timetable.adapters;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,21 +66,33 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
         EditText nameEditText = holder.nameEditText;
         TextView daysWorkTextView = holder.workDaysTextView;
 
-        if(worker.getNameIntroduced()){
+        if(worker.getNameIntroduced() && !worker.getName().equals("")){
             nameEditText.setCursorVisible(false);
-            nameEditText.setBackgroundColor(Color.TRANSPARENT);
             nameEditText.setKeyListener(null);
-            nameEditText.setPadding(0,25,0,0);
+        }
+        else
+        {
+            nameEditText.setCursorVisible(true);
+            nameEditText.setKeyListener(holder.keyListener);
         }
 
         nameEditText.setText(worker.getName());
-        daysWorkTextView.setText(worker.getworkDaysAsString());
 
         if(worker.getIsWork()){
             avatarImageView.setImageResource(worker.getImage());
+
+            String workDays;
+            if(worker.getworkDaysAsString() == null){
+                workDays = "Дни не выбраны";
+            }
+            else {
+                workDays = String.format("Может работать в: %s", worker.getworkDaysAsString());
+            }
+            daysWorkTextView.setText(workDays);
         }
         else {
             avatarImageView.setImageResource(R.drawable.avatar_uncolor);
+            daysWorkTextView.setText("В отпуске");
         }
     }
 
@@ -118,6 +132,7 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
         public EditText nameEditText;
         public TextView workDaysTextView;
         public EditTextListener editTextListener;
+        public KeyListener keyListener;
         public ViewHolder(@NonNull View itemView, EditTextListener editTextListener) {
             super(itemView);
             this.editTextListener = editTextListener;
@@ -127,6 +142,7 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
             this.workDaysTextView = itemView.findViewById(R.id.workDaysTextView);
 
             this.nameEditText.addTextChangedListener(editTextListener);
+            this.keyListener = this.nameEditText.getKeyListener();
         }
     }
 
@@ -154,6 +170,14 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
         _lastWorker = new Worker(_avatars[(int) (Math.random() * 3)], "");
         _workersList.add(_lastWorker);
     }
+
+    public void deleteWorker() {
+        Worker worker = _workersList.get(_selectedWorkerIndex);
+        worker._nameIntroduced = false;
+        _workersList.remove(_selectedWorkerIndex);
+        notifyItemRemoved(_selectedWorkerIndex);
+    }
+
 
     public void deleteEmptyWorker(){
         int position = _workersList.indexOf(_lastWorker);

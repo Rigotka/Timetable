@@ -11,21 +11,34 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/worker_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/hz">
 
         <TextView
-            android:textColor="@color/black"
-            android:textAlignment="center"
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginTop="13dp"
             android:ems="10"
             android:inputType="text"
-            android:textSize="30sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="37sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/labelInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="Выберете дни:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/checkboxContainer"
+            app:layout_constraintStart_toStartOf="@id/checkboxContainer"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <LinearLayout
             android:id="@+id/checkboxContainer"
@@ -37,17 +50,32 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name">
+            app:layout_constraintTop_toBottomOf="@+id/labelInfo">
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="15dp"
             android:text="Готово"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/checkboxContainer" />
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="15dp"
+            android:text="Удалить"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkboxContainer"
+            android:backgroundTint="#CD5C5C"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

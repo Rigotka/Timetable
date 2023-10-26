@@ -8,7 +8,7 @@ public class Worker {
 
     private String _name;
 
-    private boolean _nameIntroduced;
+    public boolean _nameIntroduced;
 
     private boolean _isWork;
     private String[] _workDays = new String[7];
@@ -58,7 +58,7 @@ public class Worker {
                 days.append(day).append(" ");
         }
         if(days.length() == 0)
-            return "-";
+            return null;
 
         return days.toString().trim();
     }
