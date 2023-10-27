@@ -11,6 +11,8 @@ import com.example.timetable.fragments.WorkersFragment;
 public class PagerAdapter extends FragmentStateAdapter {
     private Fragment workersFragment = new WorkersFragment();
 
+    private Fragment timeTableFragment = new TimetableFragment();
+
     public PagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
@@ -22,7 +24,8 @@ public class PagerAdapter extends FragmentStateAdapter {
             case 0:
                 return workersFragment;
             case 1:
-                return new TimetableFragment();
+                timeTableFragment = TimetableFragment.newInstance("1", "2");
+                return timeTableFragment;
             default:
                 return null;
         }

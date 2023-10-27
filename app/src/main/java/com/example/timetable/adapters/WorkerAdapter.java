@@ -112,15 +112,13 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
     @Override
     public void onClick(View view) {
         int position = view.getId();
+        Worker worker = (Worker) view.getTag();
         if(position == R.id.avatarImageView){
-            Toast.makeText(view.getContext(), "tuda",Toast.LENGTH_SHORT).show();
-            Worker worker = (Worker) view.getTag();
             worker.setIsWork(!worker.getIsWork());
             notifyDataSetChanged();
         }
         else
         {
-            Worker worker = (Worker) view.getTag();
             this._selectedWorkerIndex = _workersList.indexOf(worker);
             this.listener.onItemClick(worker);
         }

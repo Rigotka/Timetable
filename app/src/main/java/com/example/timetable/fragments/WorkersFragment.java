@@ -31,9 +31,6 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Work
 
     private WorkerDetails _workerDetails;
 
-    private Worker _currentWorker;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workers, container, false);
@@ -41,7 +38,6 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Work
         _recyclerView = view.findViewById(R.id.recyclerView);
         _recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         _recyclerView.setAdapter(_adapter);
-        _recyclerView.setItemViewCacheSize(20);
         _adapter.setListener(this);
 
         Button button = view.findViewById(R.id.button);
@@ -67,16 +63,7 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Work
             return;
         }
         _adapter.deleteEmptyWorker();
-        _workerDetails = new WorkerDetails();
-
-        _currentWorker = worker;
-
-        Bundle args = new Bundle();
-        args.putString("name", worker.getName());
-        args.putStringArray("workDays", worker.getWorkDays());
-        _workerDetails.setArguments(args);
-        _workerDetails.SetListener(this);
-        _workerDetails.setCancelable(false);
+        _workerDetails = WorkerDetails.newInstance(worker, this);
         _workerDetails.show(requireActivity().getSupportFragmentManager(), "");
 
         View view = requireActivity().getCurrentFocus();
