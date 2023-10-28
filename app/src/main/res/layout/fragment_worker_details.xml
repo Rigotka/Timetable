@@ -18,27 +18,14 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
-            android:inputType="text"
             android:textAlignment="center"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="37sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/labelInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:text="Выберете дни:"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/checkboxContainer"
-            app:layout_constraintStart_toStartOf="@id/checkboxContainer"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <LinearLayout
             android:id="@+id/checkboxContainer"
@@ -50,7 +37,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelInfo">
+            app:layout_constraintTop_toBottomOf="@+id/name">
         </LinearLayout>
 
         <Button

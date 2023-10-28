@@ -12,6 +12,7 @@ import android.view.View;
 import com.example.timetable.adapters.PagerAdapter;
 import com.example.timetable.fragments.WorkersFragment;
 import com.example.timetable.listeners.KeyboardHandler;
+import com.example.timetable.service.WorkerSerializer;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -21,10 +22,9 @@ public class MainActivity extends AppCompatActivity implements KeyboardHandler {
 
     private final String[] _tabs = {"Работники", "Расписание"};
 
-    private final PagerAdapter _pagerAdapter = new PagerAdapter(this);;
+    private final PagerAdapter _pagerAdapter = new PagerAdapter(this);
 
     private WorkersFragment _workersFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +45,13 @@ public class MainActivity extends AppCompatActivity implements KeyboardHandler {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public void showKeyboard(View view) {
         WindowCompat.getInsetsController(getWindow(), view).show(WindowInsetsCompat.Type.ime());
-    }
-    public void test(View view) {
-        Objects.requireNonNull(this.getCurrentFocus()).clearFocus();
     }
 }
 

@@ -63,7 +63,7 @@ public class WorkerDetails extends DialogFragment {
         Button ready = (Button) view.findViewById(R.id.buttonOk);
         ready.setOnClickListener(v -> {
             CollectionData();
-            listener.SaveData(workDays);
+            listener.SaveWorker(workDays);
         });
 
         Button delete = (Button) view.findViewById(R.id.deleteButton);

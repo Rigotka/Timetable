@@ -1,7 +1,9 @@
 package com.example.timetable.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +21,9 @@ import com.example.timetable.listeners.ClickItemListener;
 import com.example.timetable.listeners.KeyboardHandler;
 import com.example.timetable.listeners.WorkerDetailsListener;
 import com.example.timetable.model.Worker;
+import com.example.timetable.service.WorkerSerializer;
+
+import java.util.Objects;
 
 
 public class WorkersFragment extends Fragment implements ClickItemListener, WorkerDetailsListener {
@@ -30,6 +35,8 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Work
     private KeyboardHandler _keyboardHandler;
 
     private WorkerDetails _workerDetails;
+
+    private WorkerSerializer _serializer = new WorkerSerializer();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +56,15 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Work
             _adapter.notifyItemChanged(_adapter.getItemCount() - 1);
         });
 
+        _adapter.setWorkers(_serializer.LoadFromFile(view.getContext()));
+
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        _serializer.saveToFile(_adapter.getWorkers(), requireContext());
     }
 
     public void setListener(MainActivity mainActivity) {
@@ -74,7 +89,7 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Work
     }
 
     @Override
-    public void SaveData(String[] days) {
+    public void SaveWorker(String[] days) {
         _adapter.updateEmployeeData(days);
         _workerDetails.dismiss();
     }

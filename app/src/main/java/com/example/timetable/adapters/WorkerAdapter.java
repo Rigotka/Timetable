@@ -32,7 +32,7 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
 
     private Worker _lastWorker;
 
-    private ClickItemListener listener;
+    private ClickItemListener _listener;
 
     private final int[] _avatars = {
             R.drawable.avatar1,
@@ -41,7 +41,7 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
     };
 
     public void setListener(ClickItemListener listener){
-        this.listener = listener;
+        this._listener = listener;
     }
 
     @NonNull
@@ -120,7 +120,7 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
         else
         {
             this._selectedWorkerIndex = _workersList.indexOf(worker);
-            this.listener.onItemClick(worker);
+            this._listener.onItemClick(worker);
         }
     }
 
@@ -190,6 +190,11 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.ViewHolder
 
     public List<Worker> getWorkers() {
         return _workersList;
+    }
+
+    public void setWorkers(List<Worker> workers){
+        _workersList = workers;
+        notifyDataSetChanged();
     }
 
     public void updateEmployeeData(String[] days) {
