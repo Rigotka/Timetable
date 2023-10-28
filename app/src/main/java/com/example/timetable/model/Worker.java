@@ -13,10 +13,13 @@ public class Worker {
     private boolean _isWork;
     private String[] _workDays = new String[7];
 
+    private int _shifts;
+
     public Worker(int image, String name) {
         setImage(image);
         setName(name);
         setIsWork(true);
+        _shifts = 0;
     }
     public void setImage(int image) {
         _image = image;
@@ -61,5 +64,20 @@ public class Worker {
             return null;
 
         return days.toString().trim();
+    }
+
+    public void clearShifts(){
+        _shifts = 0;
+    }
+    public int getShifts(){
+        return _shifts;
+    }
+
+    public void addShifts(){
+        _shifts += 1;
+    }
+
+    public void removeShifts(){
+        _shifts -= 1;
     }
 }

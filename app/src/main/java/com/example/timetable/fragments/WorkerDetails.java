@@ -3,7 +3,9 @@ package com.example.timetable.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.example.timetable.listeners.WorkerDetailsListener;
 import com.example.timetable.model.Worker;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class WorkerDetails extends DialogFragment {
 
@@ -44,8 +47,8 @@ public class WorkerDetails extends DialogFragment {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme_DeviceDefault_Dialog_Alert);
         if(getArguments() != null) {
-            name = getArguments().getString("name");
-            workDays = getArguments().getStringArray("workDays");
+            name = getArguments().getString(ARG_NAME);
+            workDays = getArguments().getStringArray(ARG_WORK_DAYS);
         }
     }
 
@@ -57,8 +60,7 @@ public class WorkerDetails extends DialogFragment {
         TextView nameTextView = view.findViewById(R.id.name);
         nameTextView.setText(name);
 
-        checkboxContainer = view.findViewById(R.id.checkboxContainer);
-        initCheckBox();
+        checkboxContainer = view.findViewById(R.id.dayCheckboxContainer);
 
         Button ready = (Button) view.findViewById(R.id.buttonOk);
         ready.setOnClickListener(v -> {
@@ -70,14 +72,17 @@ public class WorkerDetails extends DialogFragment {
         delete.setOnClickListener(view1 -> listener.DeleteWorker());
 
         setCancelable(false);
+        initCheckBox();
+
         return view;
     }
     public void initCheckBox(){
         for (int i = 0; i < days.length; i++) {
             CheckBox checkBox = new CheckBox(this.getContext());
+            checkBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
             checkBoxes.add(checkBox);
             checkBox.setText(days[i]);
-            if(workDays[i] == days[i])
+            if(Objects.equals(workDays[i], days[i]))
                 checkBox.setChecked(true);
             checkboxContainer.addView(checkBox);
         }

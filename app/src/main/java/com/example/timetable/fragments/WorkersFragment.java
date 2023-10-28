@@ -23,6 +23,8 @@ import com.example.timetable.listeners.WorkerDetailsListener;
 import com.example.timetable.model.Worker;
 import com.example.timetable.service.WorkerSerializer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -67,6 +69,12 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Work
         _serializer.saveToFile(_adapter.getWorkers(), requireContext());
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        _serializer.saveToFile(_adapter.getWorkers(), requireContext());
+    }
+
     public void setListener(MainActivity mainActivity) {
         _keyboardHandler = mainActivity;
     }
@@ -80,7 +88,6 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Work
         _adapter.deleteEmptyWorker();
         _workerDetails = WorkerDetails.newInstance(worker, this);
         _workerDetails.show(requireActivity().getSupportFragmentManager(), "");
-
         View view = requireActivity().getCurrentFocus();
         if(view != null) {
             View hz = view.findFocus();
@@ -98,5 +105,17 @@ public class WorkersFragment extends Fragment implements ClickItemListener, Work
     public void DeleteWorker(){
         _adapter.deleteWorker();
         _workerDetails.dismiss();
+    }
+
+    public List<Worker> getWorkers(){
+        List<Worker> workerList = new ArrayList<>();
+        for (Worker worker: _adapter.getWorkers()) {
+            if(worker.getIsWork() && worker.getworkDaysAsString() != null){
+                workerList.add(worker);
+            }
+        }
+        if(workerList.size() == 0)
+            return null;
+        return workerList;
     }
 }

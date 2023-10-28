@@ -8,8 +8,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.timetable.adapters.PagerAdapter;
+import com.example.timetable.fragments.TimetableFragment;
 import com.example.timetable.fragments.WorkersFragment;
 import com.example.timetable.listeners.KeyboardHandler;
 import com.example.timetable.service.WorkerSerializer;
@@ -23,8 +25,6 @@ public class MainActivity extends AppCompatActivity implements KeyboardHandler {
     private final String[] _tabs = {"Работники", "Расписание"};
 
     private final PagerAdapter _pagerAdapter = new PagerAdapter(this);
-
-    private WorkersFragment _workersFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +40,28 @@ public class MainActivity extends AppCompatActivity implements KeyboardHandler {
                 (tab, position) -> tab.setText(_tabs[position])
         ).attach();
 
-        _workersFragment = (WorkersFragment) _pagerAdapter.getWorkerFragment();
+        WorkersFragment _workersFragment = (WorkersFragment) _pagerAdapter.getWorkerFragment();
         _workersFragment.setListener(this);
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+        TimetableFragment timetableFragment = (TimetableFragment) _pagerAdapter.getTimetableFragment();
+        pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+//                if (position == 1) {
+//                    timetableFragment.setWorkers(_workersFragment.getWorkers());
+//                }
+//            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                timetableFragment.getActivity();
+                if (position == 1) {
+                    timetableFragment.setWorkers(_workersFragment.getWorkers());
+                }
+            }
+        });
     }
 
     @Override

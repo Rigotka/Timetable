@@ -9,9 +9,9 @@ import com.example.timetable.fragments.TimetableFragment;
 import com.example.timetable.fragments.WorkersFragment;
 
 public class PagerAdapter extends FragmentStateAdapter {
-    private Fragment workersFragment = new WorkersFragment();
+    private Fragment _workersFragment = new WorkersFragment();
 
-    private Fragment timeTableFragment = new TimetableFragment();
+    private Fragment _timeTableFragment = new TimetableFragment();
 
     public PagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -22,10 +22,9 @@ public class PagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return workersFragment;
+                return _workersFragment;
             case 1:
-                timeTableFragment = TimetableFragment.newInstance("1", "2");
-                return timeTableFragment;
+                return _timeTableFragment;
             default:
                 return null;
         }
@@ -36,6 +35,10 @@ public class PagerAdapter extends FragmentStateAdapter {
     }
 
     public Object getWorkerFragment() {
-        return workersFragment;
+        return _workersFragment;
+    }
+
+    public Object getTimetableFragment(){
+        return _timeTableFragment;
     }
 }
